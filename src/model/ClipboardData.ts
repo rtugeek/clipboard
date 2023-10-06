@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 
 export type ClipboardType = 'text' | 'image' | 'file';
 
@@ -17,9 +18,17 @@ export class ClipboardData {
   updatedAt: string;
   favorite: boolean = false;
   useCount: number = 0;
+  id: string = '';
 
   constructor() {
+    this.id = nanoid();
     this.createdAt = dayjs().toISOString();
     this.updatedAt = this.createdAt;
+  }
+
+  static fromJson(json: any): ClipboardData {
+    const clipboardData = new ClipboardData();
+    Object.assign(clipboardData, json);
+    return clipboardData;
   }
 }

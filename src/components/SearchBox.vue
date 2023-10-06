@@ -22,8 +22,11 @@ const keyword = computed({
 
 <template>
   <div class="search-box">
-    <input v-model="keyword" />
-    <Search />
+    <ElInput v-model="keyword" clearable style="--el-input-border-radius:18px"  placeholder="输入关键词搜索">
+      <template #prefix>
+        <Search />
+      </template>
+    </ElInput>
   </div>
 </template>
 
@@ -31,34 +34,10 @@ const keyword = computed({
 @use '@/assets/theme';
 
 .search-box {
-  width: 100%;
-  height: 36px;
-  background-color: white;
-  border-radius: 45px;
-  border: 2px solid theme.$app-border-color;
-  padding: 10px;
+  width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  .i-icon {
-    font-size: 1.3em;
-    color: theme.$app-icon-color;
-  }
-
-  input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    font-size: 0.9em;
-    font-weight: 500;
-    color: #333;
-
-    &::placeholder {
-      color: #999;
-    }
-  }
 }
 </style>

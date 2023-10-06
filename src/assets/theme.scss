@@ -1,7 +1,13 @@
 $app-primary-color: #6365ff;
+$app-secondary-color: rgb(255, 168, 125);
 $app-background-color: #f5f5ff;
 $app-border-color: #dfe0ff;
-$app-text-color: darken($app-primary-color, 60%);
+$app-text-color: rgb(22, 22, 56);
 $app-icon-color: $app-text-color;
 $app-header-color: $app-primary-color;
 $app-card-color: white;
+$app-border-radius: 16px;
+$app-primary-opacity-20: rgba($app-primary-color, 0.2);
+$app-text-color-opacity-20: rgba($app-text-color, 0.2);
+$app-aside-width: 280px;
+
