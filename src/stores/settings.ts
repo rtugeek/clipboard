@@ -1,10 +1,10 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useSettingsStore = defineStore('settingsStore', {
   state() {
     return {
       historyExpiredHours: 12,
-    };
+    }
   },
   persist: {
     enabled: true,
@@ -15,4 +15,4 @@ export const useSettingsStore = defineStore('settingsStore', {
       },
     ],
   },
-});
+})

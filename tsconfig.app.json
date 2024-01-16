@@ -1,5 +1,16 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "moduleResolution": "Node",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "types": ["element-plus/global", "@vueuse/core"]
+  },
   "include": [
     "env.d.ts",
     "src/**/*",
@@ -7,16 +18,5 @@
   ],
   "exclude": [
     "src/**/__tests__/*"
-  ],
-  "compilerOptions": {
-    "moduleResolution": "Node",
-    "composite": true,
-    "baseUrl": ".",
-    "types": ["element-plus/global","@vueuse/core"],
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  }
+  ]
 }

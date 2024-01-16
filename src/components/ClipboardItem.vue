@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import FavoriteButton from '@/components/FavoriteButton.vue';
-import { computed, PropType, toRaw, unref, watch } from 'vue';
-import type { ClipboardData } from '@/model/ClipboardData';
-import dayjs from 'dayjs';
-import { clipboardDataRepository } from '@/model/ClipboardDataRepository';
-import { useDebounceFn } from '@vueuse/core';
+import type { PropType } from 'vue'
+import { computed, toRaw, watch } from 'vue'
+import dayjs from 'dayjs'
+import { useDebounceFn } from '@vueuse/core'
+import FavoriteButton from '@/components/FavoriteButton.vue'
+import type { ClipboardData } from '@/model/ClipboardData'
+import { clipboardDataRepository } from '@/model/ClipboardDataRepository'
 
 const props = defineProps({
   modelValue: {
@@ -15,30 +16,34 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-});
+})
 
 const time = computed(() => {
-  return dayjs(props.modelValue.createdAt).format('YYYY-MM-DD HH:mm');
-});
+  return dayjs(props.modelValue.createdAt).format('YYYY-MM-DD HH:mm')
+})
 
 const debouncedSave = useDebounceFn(() => {
-  clipboardDataRepository.update(toRaw(props.modelValue));
-}, 1000);
+  clipboardDataRepository.update(toRaw(props.modelValue))
+}, 1000)
 
 watch(
   () => props.modelValue,
   (newVal) => {
-    debouncedSave();
+    debouncedSave()
   },
   { deep: true },
-);
+)
 </script>
 
 <template>
   <div class="clipboard-item" :class="{ active }">
     <div class="info">
-      <div class="content">{{ modelValue.content }}</div>
-      <div class="created-at">{{ time }}</div>
+      <div class="content">
+        {{ modelValue.content }}
+      </div>
+      <div class="created-at">
+        {{ time }}
+      </div>
     </div>
     <FavoriteButton v-model="modelValue.favorite" />
   </div>

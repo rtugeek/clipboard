@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { Star } from '@icon-park/vue-next';
+import { Star } from '@icon-park/vue-next'
 
 const props = defineProps({
   modelValue: {
     type: Boolean,
     default: false,
   },
-});
+})
 
-const emit = defineEmits(['update:modelValue']);
-const handleClick = () => {
-  emit('update:modelValue', !props.modelValue);
-};
+const emit = defineEmits(['update:modelValue'])
+function handleClick() {
+  emit('update:modelValue', !props.modelValue)
+}
 </script>
 
 <template>
   <div class="favorite-button" @click="handleClick">
-    <star theme="filled" fill="#fbb414" v-if="modelValue" />
-    <Star theme="outline" fill="#ccc" v-else />
+    <Star v-if="modelValue" theme="filled" fill="#fbb414" />
+    <Star v-else theme="outline" fill="#ccc" />
   </div>
 </template>
 

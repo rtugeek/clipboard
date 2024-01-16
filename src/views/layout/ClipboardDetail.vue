@@ -1,34 +1,36 @@
 <script setup lang="ts">
-import CircleButton from '@/components/CircleButton.vue';
-import { useClipboardStore } from '@/stores/clipboard';
-import { storeToRefs } from 'pinia';
-import { History } from '@icon-park/vue-next';
-import Labels from '@/components/Labels.vue';
-import { clipboardDataRepository } from '@/model/ClipboardDataRepository';
+import { storeToRefs } from 'pinia'
+import { History } from '@icon-park/vue-next'
+import CircleButton from '@/components/CircleButton.vue'
+import { useClipboardStore } from '@/stores/clipboard'
+import Labels from '@/components/Labels.vue'
+import { clipboardDataRepository } from '@/model/ClipboardDataRepository'
 
-const clipboardStore = useClipboardStore();
-const { selectedData, clipboardList } = storeToRefs(clipboardStore);
+const clipboardStore = useClipboardStore()
+const { selectedData, clipboardList } = storeToRefs(clipboardStore)
 
-const deleteData = async () => {
-  await clipboardDataRepository.delete(selectedData.value!.id);
-  const length = clipboardList.value.length;
+async function deleteData() {
+  await clipboardDataRepository.delete(selectedData.value!.id)
+  const length = clipboardList.value.length
   if (length > 1) {
-    const index = clipboardList.value.indexOf(selectedData.value!);
-    clipboardList.value.splice(index, 1);
+    const index = clipboardList.value.indexOf(selectedData.value!)
+    clipboardList.value.splice(index, 1)
     if (index >= clipboardList.value.length) {
-      selectedData.value = clipboardList.value[index - 1];
-    } else {
-      selectedData.value = clipboardList.value[index];
+      selectedData.value = clipboardList.value[index - 1]
     }
-  } else {
-    selectedData.value = undefined;
-    clipboardList.value = [];
+    else {
+      selectedData.value = clipboardList.value[index]
+    }
   }
-};
+  else {
+    selectedData.value = undefined
+    clipboardList.value = []
+  }
+}
 </script>
 
 <template>
-  <div class="clipboard-detail" v-if="selectedData">
+  <div v-if="selectedData" class="clipboard-detail">
     <div class="content">
       <el-input
         v-model="selectedData.content"
@@ -36,7 +38,8 @@ const deleteData = async () => {
         type="textarea"
         :maxlength="50000"
         placeholder="Please input"
-        show-word-limit />
+        show-word-limit
+      />
     </div>
     <Labels v-model="selectedData.labels">
       <el-tag>
@@ -50,7 +53,8 @@ const deleteData = async () => {
         width="200"
         cancel-button-text="取消"
         confirm-button-text="确定"
-        @confirm="deleteData">
+        @confirm="deleteData"
+      >
         <template #reference>
           <CircleButton icon="delete" background="#FF6363" />
         </template>

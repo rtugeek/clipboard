@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { Clear, Close, SettingTwo } from '@icon-park/vue-next';
-import SearchBox from '@/components/SearchBox.vue';
-import { ref } from 'vue';
+import { Clear, Close, SettingTwo } from '@icon-park/vue-next'
+import { ref } from 'vue'
+import SearchBox from '@/components/SearchBox.vue'
 
-const keyword = ref('');
+const keyword = ref('')
 
-const close = () => {
-  window.close();
-};
+function close() {
+  window.close()
+}
 </script>
 
 <template>

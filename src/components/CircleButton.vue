@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { IconPark } from '@icon-park/vue-next/es/all';
-import { computed } from 'vue';
-import Color from 'color';
+import { IconPark } from '@icon-park/vue-next/es/all'
+import { computed } from 'vue'
+import Color from 'color'
 
 const props = defineProps({
   background: {
@@ -12,17 +12,17 @@ const props = defineProps({
     type: String,
     required: true,
   },
-});
+})
 
 const bgOpacity20 = computed(() => {
-  return Color(props.background).lighten(0.2);
-});
+  return Color(props.background).lighten(0.2)
+})
 </script>
 
 <template>
   <div class="circle-button">
     <slot>
-      <icon-park :type="icon" />
+      <IconPark :type="icon" />
     </slot>
   </div>
 </template>

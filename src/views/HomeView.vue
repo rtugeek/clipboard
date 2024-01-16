@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import Header from '@/views/layout/Header.vue';
-import ClipboardList from '@/views/layout/ClipboardList.vue';
-import ClipboardDetail from '@/views/layout/ClipboardDetail.vue';
-import Settings from "@/views/layout/Settings.vue";
+import Header from '@/views/layout/Header.vue'
+import ClipboardList from '@/views/layout/ClipboardList.vue'
+import ClipboardDetail from '@/views/layout/ClipboardDetail.vue'
+import Settings from '@/views/layout/Settings.vue'
 </script>
 
 <template>
-  <div class="clipboard" id="clipboard">
+  <div id="clipboard" class="clipboard">
     <Header />
     <main>
       <ClipboardList model-value="" />
       <ClipboardDetail />
-      <Settings/>
+      <Settings />
     </main>
   </div>
 </template>
+
 <style scoped lang="scss">
 @use '@/assets/theme';
 
