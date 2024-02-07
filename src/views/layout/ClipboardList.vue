@@ -1,40 +1,109 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { ref, watch } from 'vue'
-import { useElementVisibility } from '@vueuse/core'
-import ClipboardItem from '@/components/ClipboardItem.vue'
-import type { ClipboardData } from '@/model/ClipboardData'
-import { useClipboardStore } from '@/stores/clipboard'
-import Spin from '@/components/Spin.vue'
+import { storeToRefs } from 'pinia';
+import { ref, toRaw, watch } from 'vue';
+import { onKeyStroke, useElementVisibility, useThrottle, useThrottleFn } from '@vueuse/core';
+import ClipboardItem from '@/components/ClipboardItem.vue';
+import type { ClipboardData } from '@/model/ClipboardData';
+import { useClipboardStore } from '@/stores/clipboard';
+import Spin from '@/components/Spin.vue';
+import { useWindowStore } from '@/stores/window';
+import { clipboardDataRepository } from '@/model/ClipboardDataRepository';
+import { ElMessageBox, ElScrollbar } from 'element-plus';
+import 'element-plus/es/components/message-box/style/index';
+import 'element-plus/es/components/message/style/index';
+import { delay } from '@/utils/TimeUtils';
+
+const spinner = ref();
+const innerRef = ref<HTMLDivElement>();
+const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>();
+const clipboardStore = useClipboardStore();
+const windowStore = useWindowStore();
+const { clipboardList, selectedData, hasMore, pageSize } = storeToRefs(clipboardStore);
+const { showing } = storeToRefs(windowStore);
+const spinnerIsVisible = useElementVisibility(spinner);
+let showDeleteConfirm = false;
+
+watch(spinnerIsVisible, (value) => {
+  if (value) {
+    clipboardStore.loadMore();
+  }
+});
+
+watch(showing, async (value) => {
+  if (value) {
+    await clipboardStore.refresh();
+    selectedData.value = clipboardList.value[0];
+    scrollbarRef.value?.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+
+const scrollToClipboardItem = (data: ClipboardData) => {
+  const element = document.querySelector<HTMLDivElement>(`#item-${data.id}`);
+  innerRef.value!.clientHeight;
+  scrollbarRef.value?.scrollTo({ top: element?.offsetTop ?? 0, behavior: 'smooth' });
+};
+
+const throttledKeyboardCallBack = useThrottleFn((e) => {
+  let index = clipboardList.value.findIndex((it) => it.id == selectedData.value?.id);
+  if (e.code == 'ArrowUp') {
+    index--;
+    index = index < 0 ? 0 : index;
+    selectedData.value = clipboardList.value[index];
+    scrollToClipboardItem(selectedData.value);
+  } else if (e.code == 'ArrowDown') {
+    index++;
+    index = index > clipboardList.value.length - 1 ? clipboardList.value.length - 1 : index;
+    selectedData.value = clipboardList.value[index];
+    scrollToClipboardItem(selectedData.value);
+  } else if (e.code == 'Enter') {
+    console.log('showDeleteConfirm', showDeleteConfirm);
+    if (showDeleteConfirm) {
+      ElMessageBox.close();
+      clipboardDataRepository.delete(selectedData.value!.id);
+    } else {
+      windowStore.submit(selectedData.value!);
+    }
+  } else if (e.code == 'Delete' && !showDeleteConfirm) {
+    showDeleteConfirm = true;
+    ElMessageBox.confirm('确定删除该记录？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      closeOnPressEscape: true,
+      type: 'warning',
+      appendTo: '#clipboard',
+    })
+      .then(() => {
+        clipboardDataRepository.delete(selectedData.value!.id);
+      })
+      .finally(async () => {
+        await delay(300);
+        showDeleteConfirm = false;
+      });
+  }
+}, 100);
+
+onKeyStroke(['ArrowUp', 'ArrowDown', 'Enter', 'Delete'], throttledKeyboardCallBack);
 
 function itemClick(item: ClipboardData) {
-  selectedData.value = item
+  selectedData.value = item;
+  windowStore.submit(item);
 }
-
-const spinner = ref()
-const clipboardStore = useClipboardStore()
-const { clipboardList, selectedData, hasMore, pageSize } = storeToRefs(clipboardStore)
-const spinnerIsVisible = useElementVisibility(spinner)
-watch(spinnerIsVisible, (value) => {
-  console.log(value)
-  if (value) {
-    clipboardStore.loadMore()
-  }
-})
 </script>
 
 <template>
   <aside>
-    <ElScrollbar>
-      <div class="items">
-        <template v-for="item in clipboardList" :key="item.id">
-          <ClipboardItem :model-value="item" :active="selectedData.id == item.id" @click="itemClick(item)" />
+    <ElScrollbar ref="scrollbarRef">
+      <div class="items" ref="innerRef">
+        <template v-for="(item, index) in clipboardList" :key="`key-${item.id}-${item.updateTime}`">
+          <ClipboardItem
+            :model-value="item"
+            :id="`item-${item.id}`"
+            :active="selectedData?.id == item.id"
+            @click="itemClick(item)" />
         </template>
         <template v-if="clipboardList.length >= pageSize">
           <Spin v-if="hasMore" ref="spinner" />
-          <div v-else class="no-more">
-            没有更多了
-          </div>
+          <div v-else class="no-more">没有更多了</div>
         </template>
       </div>
     </ElScrollbar>
@@ -45,16 +114,16 @@ watch(spinnerIsVisible, (value) => {
 @use '@/assets/theme';
 
 aside {
-  width: theme.$app-aside-width;
+  width: 100%;
   height: 100%;
   display: flex;
   position: relative;
   overflow: hidden;
   flex-direction: column;
-  border-right: 2px solid theme.$app-border-color;
 
   .items {
     flex: 5;
+    position: relative;
   }
 
   .no-more {

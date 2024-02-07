@@ -10,7 +10,7 @@
 }
 
 body {
-  padding: 16px;
+  padding: theme.$app-body-padding;
   min-height: 100vh;
   transition: color 0.5s, background-color 0.5s;
   line-height: 1;
@@ -29,6 +29,7 @@ body {
   --app-tag-hover-color: #{theme.$app-primary-color};
   --app-tag-bg-color: #{theme.$app-primary-opacity-20};
   --app-tag-border-color: #{theme.$app-primary-opacity-20};
+  --el-color-primary: theme.$app-primary-color;
 }
 
 .el-overlay{
@@ -40,3 +41,7 @@ body {
 .el-overlay.is-message-box .el-overlay-message-box{
   position: absolute;
 }
+.el-overlay.is-message-box {
+  position: absolute;
+}
+
