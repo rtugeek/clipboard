@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { ref, toRaw, watch } from 'vue';
-import { onKeyStroke, useElementVisibility, useThrottle, useThrottleFn } from '@vueuse/core';
+import { ref, watch } from 'vue';
+import { onKeyStroke, useElementVisibility, useThrottleFn } from '@vueuse/core';
 import ClipboardItem from '@/components/ClipboardItem.vue';
 import type { ClipboardData } from '@/model/ClipboardData';
 import { useClipboardStore } from '@/stores/clipboard';
 import Spin from '@/components/Spin.vue';
-import { useWindowStore } from '@/stores/window';
+import { useClipboardWindowStore } from '@/stores/clipboardWindowStore';
 import { clipboardDataRepository } from '@/model/ClipboardDataRepository';
 import { ElMessageBox, ElScrollbar } from 'element-plus';
 import 'element-plus/es/components/message-box/style/index';
@@ -17,7 +17,7 @@ const spinner = ref();
 const innerRef = ref<HTMLDivElement>();
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>();
 const clipboardStore = useClipboardStore();
-const windowStore = useWindowStore();
+const windowStore = useClipboardWindowStore();
 const { clipboardList, selectedData, hasMore, pageSize } = storeToRefs(clipboardStore);
 const { showing } = storeToRefs(windowStore);
 const spinnerIsVisible = useElementVisibility(spinner);
@@ -56,7 +56,6 @@ const throttledKeyboardCallBack = useThrottleFn((e) => {
     selectedData.value = clipboardList.value[index];
     scrollToClipboardItem(selectedData.value);
   } else if (e.code == 'Enter') {
-    console.log('showDeleteConfirm', showDeleteConfirm);
     if (showDeleteConfirm) {
       ElMessageBox.close();
       clipboardDataRepository.delete(selectedData.value!.id);

@@ -14,6 +14,37 @@ export const useClipboardStore = defineStore('clipboard', () => {
   const hasMore = ref(true);
   const keyword = ref('');
 
+  const initGuide = () => {
+    const guide = localStorage.getItem('clipboard_guide_5');
+    if (!guide) {
+      localStorage.setItem('clipboard_guide', '1');
+      const clipboardData1 = new ClipboardData();
+      clipboardData1.content = '按下 Win+Alt+V 呼出窗口，快捷键在设置⚙里可以修改';
+      clipboardData1.favorite = true;
+
+      const clipboardData4 = new ClipboardData();
+      clipboardData4.content = '点击⭐可以收藏内容，收藏的内容不会被清理';
+      clipboardData4.favorite = true;
+
+      const clipboardData2 = new ClipboardData();
+      clipboardData2.content = '点击内容直接复制到剪贴板';
+      clipboardData2.favorite = false;
+
+      const clipboardData3 = new ClipboardData();
+      clipboardData3.content = '按上下键可以选择内容，按下回车复制';
+      clipboardData3.favorite = true;
+
+      clipboardDataRepository.save(clipboardData1);
+      clipboardDataRepository.save(clipboardData2);
+      clipboardDataRepository.save(clipboardData3);
+      clipboardDataRepository.save(clipboardData4);
+      return true;
+    }
+    return false;
+  };
+
+  initGuide();
+
   const refresh = async () => {
     page.value = 0;
     const res = await clipboardDataRepository.search({

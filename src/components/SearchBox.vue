@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Search } from '@icon-park/vue-next';
 import { computed, watch, ref } from 'vue';
-import { useWindowStore } from '@/stores/window';
+import { useClipboardWindowStore } from '@/stores/clipboardWindowStore';
 import { ElInput } from 'element-plus';
 import { storeToRefs } from 'pinia';
 
@@ -12,7 +12,7 @@ const props = defineProps({
   },
 });
 const searchInputRef = ref<InstanceType<typeof ElInput>>();
-const windowStore = useWindowStore();
+const windowStore = useClipboardWindowStore();
 const { showing } = storeToRefs(windowStore);
 const emit = defineEmits(['update:modelValue']);
 const keyword = computed({
@@ -38,7 +38,7 @@ watch(showing, (value) => {
       v-model="keyword"
       autofocus
       clearable
-      style="--el-input-border-radius: 18px; --el-font-size-base: 1rem"
+      style="--el-input-border-radius: 18px;"
       placeholder="输入关键词搜索">
       <template #prefix>
         <Search />

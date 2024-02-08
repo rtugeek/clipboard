@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import Header from '@/views/layout/Header.vue';
+import Header from '@/widgets/clipboard/layout/Header.vue';
 import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3';
-import { onMounted, watch } from 'vue';
+import { onMounted } from 'vue';
 import { ClipboardApiEvent, ShortcutApi } from '@widget-js/core';
 import { onKeyStroke } from '@vueuse/core';
 import { useSettingsStore } from '@/stores/settings';
 import { delay } from '@/utils/TimeUtils';
 import { useRoute, useRouter } from 'vue-router';
-import { useWindowStore } from '@/stores/window';
+import { useClipboardWindowStore } from '@/stores/clipboardWindowStore';
 import { clipboardDataRepository } from '@/model/ClipboardDataRepository';
 import { ClipboardData } from '@/model/ClipboardData';
 
-const windowStore = useWindowStore();
+const windowStore = useClipboardWindowStore();
 const settingsStore = useSettingsStore();
 ShortcutApi.register(settingsStore.shortcut);
 useShortcutListener(async (shortcut) => {
@@ -47,10 +47,10 @@ const router = useRouter();
 const route = useRoute();
 onKeyStroke(['Escape'], (e) => {
   if (e.code == 'Escape') {
-    if (route.path == '/') {
+    if (route.path == '/clipboard') {
       windowStore.hide();
     } else {
-      router.back();
+      router.push({ name: 'clipboard' });
     }
   }
   e.preventDefault();

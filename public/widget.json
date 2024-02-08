@@ -1,0 +1,90 @@
+{
+  "name": "cn.widgetjs.widgets.clipboard",
+  "version": "1.0.0",
+  "author": "Neo Fu",
+  "development": true,
+  "homepage": "",
+  "title": {
+    "zh-CN": "剪切板组件包"
+  },
+  "description": {
+    "zh-CN": "提供剪切板便捷功能"
+  },
+  "entry": "/",
+  "remoteEntry": "https://rtugeek.gitee.io/clipboard",
+  "hash": true,
+  "url": "",
+  "widgets": [
+    {
+      "name": "cn.widgetjs.widgets.clipboard.search",
+      "title": {
+        "zh-CN": "剪切板搜索"
+      },
+      "description": {
+        "zh-CN": "在屏幕上方显示剪切板快捷搜索"
+      },
+      "keywords": [
+        "recommend"
+      ],
+      "security": false,
+      "permissions": [
+        "clipboard"
+      ],
+      "lang": "zh-CN",
+      "width": 1,
+      "height": 1,
+      "maxWidth": 1,
+      "webviewTag": false,
+      "maxHeight": 1,
+      "minWidth": 1,
+      "minHeight": 1,
+      "movable": true,
+      "singleton": false,
+      "resizable": true,
+      "path": "/search",
+      "meta": {},
+      "backgroundThrottling": false,
+      "previewImage": "/images/preview_search.png",
+      "supportDeployMode": 65536,
+      "configPagePath": "/search/config",
+      "routes": []
+    },
+    {
+      "name": "cn.widgetjs.widgets.clipboard.list",
+      "title": {
+        "zh-CN": "剪切板"
+      },
+      "description": {
+        "zh-CN": "带搜索、收藏功能的剪切板"
+      },
+      "keywords": [
+        "recommend"
+      ],
+      "security": false,
+      "permissions": [],
+      "lang": "zh-CN",
+      "width": 1,
+      "height": 1,
+      "maxWidth": 1,
+      "webviewTag": false,
+      "maxHeight": 1,
+      "minWidth": 1,
+      "minHeight": 1,
+      "movable": true,
+      "singleton": false,
+      "resizable": true,
+      "path": "/clipboard",
+      "meta": {},
+      "backgroundThrottling": false,
+      "previewImage": "/images/preview_sit_reminder.png",
+      "supportDeployMode": 65536,
+      "routes": []
+    }
+  ],
+  "pages": [],
+  "devOptions": {
+    "folder": "./src/widgets/",
+    "route": true,
+    "devUrl": "http://localhost:5173/clipboard"
+  }
+}

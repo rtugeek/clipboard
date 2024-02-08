@@ -1,18 +1,21 @@
 import WidgetRouter from '../widgets/widget-router';
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import Settings from '@/views/layout/Settings.vue'
-import ClipboardList from '@/views/layout/ClipboardList.vue'
+import { createRouter, createWebHashHistory } from 'vue-router';
+import Settings from '@/widgets/clipboard/layout/Settings.vue';
+import ClipboardList from '@/widgets/clipboard/layout/ClipboardList.vue';
+import ClipboardView from '@/widgets/clipboard/ClipboardView.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
-    ...WidgetRouter,
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
-      children:[
+      redirect: '/clipboard/',
+    },
+    {
+      path: '/clipboard',
+      name: 'index',
+      component: ClipboardView,
+      children: [
         {
           path: '',
           name: 'clipboard',
@@ -22,9 +25,10 @@ const router = createRouter({
           path: 'settings',
           name: 'settings',
           component: Settings,
-        }
-      ]
+        },
+      ],
     },
+    ...WidgetRouter,
   ],
 });
 

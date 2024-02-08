@@ -109,7 +109,7 @@ $active-color: theme.$app-secondary-color;
     width: 70%;
     line-height: 1.2rem;
     .content {
-      font-size: 1.2em;
+      font-size: 1rem;
       font-weight: bold;
       white-space: pre-wrap;
       word-wrap: break-word;

@@ -10,7 +10,7 @@ import { clipboardDataRepository } from '@/model/ClipboardDataRepository';
 import dayjs from 'dayjs';
 import { useSettingsStore } from '@/stores/settings';
 
-export const useWindowStore = defineStore('windowStore', () => {
+export const useClipboardWindowStore = defineStore('clipboardWindowStore', () => {
   const windowWidth = ref(500);
   const windowHeight = ref(400);
   const showing = ref(false);
@@ -19,11 +19,9 @@ export const useWindowStore = defineStore('windowStore', () => {
 
   const maxY = ref(screenHeight);
   const minY = ref(screenHeight - windowHeight.value - 54);
-  const minX = ref((screenWidth - windowWidth.value) / 2);
 
   async function isHide() {
     const pos = await BrowserWindowApi.getPosition();
-    consola.log('hide2', pos.y, screenHeight, pos.y >= screenHeight);
     return pos.y >= screenHeight;
   }
 
@@ -39,7 +37,6 @@ export const useWindowStore = defineStore('windowStore', () => {
       const hidden = await isHide();
       consola.log(animateY.positionY);
       if (hidden) {
-        consola.info('hide');
         await BrowserWindowApi.minimize();
         showing.value = false;
       }
@@ -59,7 +56,6 @@ export const useWindowStore = defineStore('windowStore', () => {
 
   async function submit(item: ClipboardData) {
     hide();
-    console.log(item.content);
     ClipboardApi.writeText(item.content);
     await delay(1000);
     DeviceApi.sendCtrlV();
@@ -74,6 +70,7 @@ export const useWindowStore = defineStore('windowStore', () => {
       width: windowWidth.value,
       height: windowHeight.value,
       movable: true,
+      resizable: false,
       alwaysOnTop: true,
     });
   }

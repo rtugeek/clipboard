@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CircleButton: typeof import('./src/components/CircleButton.vue')['default']
     ClipboardItem: typeof import('./src/components/ClipboardItem.vue')['default']
+    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElDialog: typeof import('element-plus/es')['ElDialog']

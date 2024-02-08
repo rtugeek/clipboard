@@ -25,7 +25,7 @@ const { keyword } = storeToRefs(clipboardStore);
         <Clear />
       </template>
     </el-popconfirm>
-    <router-link to="/settings">
+    <router-link to="/clipboard/settings">
       <SettingTwo theme="outline" />
     </router-link>
     <Close style="margin-left: auto" @click="emits('close')" />
