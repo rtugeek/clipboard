@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { type PropType, computed } from 'vue'
 import { ElMessageBox } from 'element-plus'
 import { Plus } from '@icon-park/vue-next'
 
 const props = defineProps({
   modelValue: {
-    type: Array,
+    type: Array as PropType<string[]>,
     default: () => [],
   },
 })
 const emit = defineEmits(['update:modelValue'])
-const inputValue = ref('')
-const inputVisible = ref(false)
 
 const dynamicTags = computed({
   get() {
@@ -42,18 +40,10 @@ function showInput() {
     dynamicTags.value.push(value)
   })
 }
-
-function handleInputConfirm() {
-  if (inputValue.value) {
-    dynamicTags.value.push(inputValue.value)
-  }
-  inputVisible.value = false
-  inputValue.value = ''
-}
 </script>
 
 <template>
-  <div ref="labelsRef" class="labels">
+  <div class="labels">
     <slot />
     <el-tag
       v-for="tag in dynamicTags"

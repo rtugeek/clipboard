@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { Search } from '@icon-park/vue-next';
-import { computed, watch, ref } from 'vue';
-import { useClipboardWindowStore } from '@/stores/clipboardWindowStore';
-import { ElInput } from 'element-plus';
-import { storeToRefs } from 'pinia';
+import { Search } from '@icon-park/vue-next'
+import { computed, ref, watch } from 'vue'
+import { ElInput } from 'element-plus'
+import { storeToRefs } from 'pinia'
+import { useClipboardWindowStore } from '@/stores/clipboardWindowStore'
 
 const props = defineProps({
   modelValue: {
     type: String,
     required: true,
   },
-});
-const searchInputRef = ref<InstanceType<typeof ElInput>>();
-const windowStore = useClipboardWindowStore();
-const { showing } = storeToRefs(windowStore);
-const emit = defineEmits(['update:modelValue']);
+})
+const emit = defineEmits(['update:modelValue'])
+const searchInputRef = ref<InstanceType<typeof ElInput>>()
+const windowStore = useClipboardWindowStore()
+const { showing } = storeToRefs(windowStore)
 const keyword = computed({
   get() {
-    return props.modelValue;
+    return props.modelValue
   },
   set(value) {
-    emit('update:modelValue', value);
+    emit('update:modelValue', value)
   },
-});
+})
 
 watch(showing, (value) => {
   if (value) {
-    searchInputRef.value?.focus();
+    searchInputRef.value?.focus()
   }
-});
+})
 </script>
 
 <template>
@@ -39,7 +39,8 @@ watch(showing, (value) => {
       autofocus
       clearable
       style="--el-input-border-radius: 18px;"
-      placeholder="输入关键词搜索">
+      placeholder="输入关键词搜索"
+    >
       <template #prefix>
         <Search />
       </template>

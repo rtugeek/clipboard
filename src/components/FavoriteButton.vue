@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { Star } from '@icon-park/vue-next';
+import { Star } from '@icon-park/vue-next'
 
 const props = defineProps({
   modelValue: {
     type: Boolean,
     default: false,
   },
-});
+})
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue'])
 
 function handleClick() {
-  emit('update:modelValue', !props.modelValue);
+  emit('update:modelValue', !props.modelValue)
 }
 </script>
 

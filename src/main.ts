@@ -4,11 +4,11 @@ import { createPinia } from 'pinia'
 import './assets/main.scss'
 import piniaPersist from 'pinia-plugin-persist'
 import * as localforage from 'localforage'
+import { WidgetJsPlugin } from '@widget-js/vue3'
 import App from './App.vue'
 import '@widget-js/vue3/dist/style.css'
 import router from './router'
 import { clipboardDataRepository } from '@/model/ClipboardDataRepository'
-import { WidgetJsPlugin } from '@widget-js/vue3'
 
 async function init() {
   localforage.config({

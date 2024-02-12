@@ -1,44 +1,43 @@
 <script lang="ts" setup>
-import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3';
-import { BrowserWindowApi, BrowserWindowApiEvent, ClipboardApiEvent, ShortcutApi } from '@widget-js/core';
-import { ref, watch } from 'vue';
-import { useLocalStorage } from '@vueuse/core';
-import type { SearchEngine } from '@/widgets/search/model/SearchPlatform';
-import { search, searchPlatformList } from '@/widgets/search/model/SearchPlatform';
-import { useSearchWindowStore } from '@/stores/searchWindowsStore';
+import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3'
+import { BrowserWindowApi, BrowserWindowApiEvent, ClipboardApiEvent, ShortcutApi } from '@widget-js/core'
+import { ref, watch } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
+import type { SearchEngine } from '@/widgets/search/model/SearchPlatform'
+import { search, searchPlatformList } from '@/widgets/search/model/SearchPlatform'
+import { useSearchWindowStore } from '@/stores/searchWindowsStore'
 import ClipboardSearchWidget from '@/widgets/search/ClipboardSearch.widget'
 
-const data = ref('');
-const searchWindowStore = useSearchWindowStore();
+const data = ref('')
+const searchWindowStore = useSearchWindowStore()
 
-searchWindowStore.setup();
+searchWindowStore.setup()
 
 useAppBroadcast([ClipboardApiEvent.CHANGED, BrowserWindowApiEvent.FOCUS], async (broadcast) => {
   if (broadcast.event == ClipboardApiEvent.CHANGED) {
-    data.value = broadcast.payload.content as string;
-    await BrowserWindowApi.setAlwaysOnTop(true);
+    data.value = broadcast.payload.content as string
+    await BrowserWindowApi.setAlwaysOnTop(true)
     searchWindowStore.show()
   }
-});
+})
 
-const shortcut = useLocalStorage(`${ClipboardSearchWidget.name}.shortcut`, 'Meta+Alt+S', { listenToStorageChanges: true });
+const shortcut = useLocalStorage(`${ClipboardSearchWidget.name}.shortcut`, 'Meta+Alt+S', { listenToStorageChanges: true })
 const searchPlatform = useLocalStorage<SearchEngine>(`${ClipboardSearchWidget.name}.platform`, 'google', {
   listenToStorageChanges: true,
-});
+})
 
 watch(shortcut, (newShortcut, oldValue) => {
-  ShortcutApi.unregister(oldValue);
-  ShortcutApi.register(newShortcut);
-});
+  ShortcutApi.unregister(oldValue)
+  ShortcutApi.register(newShortcut)
+})
 
-ShortcutApi.register(shortcut.value);
+ShortcutApi.register(shortcut.value)
 
 useShortcutListener(() => {
   if (data.value) {
-    search(searchPlatform.value, data.value);
+    search(searchPlatform.value, data.value)
   }
-});
-
+})
 </script>
 
 <template>
@@ -51,8 +50,9 @@ useShortcutListener(() => {
         v-for="platform in searchPlatformList"
         :key="platform.value"
         class="search-engine"
-        @click="search(platform.value, data)">
-        <img :src="platform.icon" :alt="platform.title" />
+        @click="search(platform.value, data)"
+      >
+        <img :src="platform.icon" :alt="platform.title">
       </div>
     </div>
   </div>

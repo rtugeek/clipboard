@@ -1,4 +1,4 @@
-import { BackgroundWidget, DeployMode, Widget, WidgetKeyword } from '@widget-js/core';
+import { BackgroundWidget, WidgetKeyword } from '@widget-js/core'
 
 const ClipboardSearchWidget = new BackgroundWidget({
   path: '/search',
@@ -10,6 +10,6 @@ const ClipboardSearchWidget = new BackgroundWidget({
   lang: 'zh-CN',
   permissions: ['clipboard'],
   previewImage: '/images/preview_search.png',
-});
+})
 
-export default ClipboardSearchWidget;
+export default ClipboardSearchWidget

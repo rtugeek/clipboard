@@ -18,6 +18,7 @@ const bgOpacity20 = computed(() => {
   return Color(props.background).lighten(0.2)
 })
 </script>
+
 <template>
   <div class="circle-button">
     <slot>

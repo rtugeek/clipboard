@@ -47,7 +47,7 @@ BrowserWindowApi.setup({
       <el-alert type="info" :closable="false">
         按下快捷键搜索剪贴板内容，不用鼠标点击搜索框
       </el-alert>
-      <el-form style="margin-top: 12px" >
+      <el-form style="margin-top: 12px">
         <el-form-item label="搜索快捷键">
           <WidgetBindShortcutField v-model="shortcut" />
         </el-form-item>

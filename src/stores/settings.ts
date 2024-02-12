@@ -1,5 +1,4 @@
-import { defineStore } from 'pinia';
-import { ShortcutApi } from '@widget-js/core';
+import { defineStore } from 'pinia'
 
 export const useSettingsStore = defineStore('settingsStore', {
   state() {
@@ -7,7 +6,7 @@ export const useSettingsStore = defineStore('settingsStore', {
       historyExpiredHours: 12,
       shortcut: 'Meta+Alt+V',
       enableQuickSearch: true,
-    };
+    }
   },
   persist: {
     enabled: true,
@@ -18,4 +17,4 @@ export const useSettingsStore = defineStore('settingsStore', {
       },
     ],
   },
-});
+})

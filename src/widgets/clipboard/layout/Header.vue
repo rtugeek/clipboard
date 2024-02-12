@@ -1,26 +1,25 @@
 <script setup lang="ts">
-import { Clear, Close, SettingTwo } from '@icon-park/vue-next';
-import SearchBox from '@/components/SearchBox.vue';
-import { useClipboardStore } from '@/stores/clipboard';
-import { storeToRefs } from 'pinia';
+import { Clear, Close, SettingTwo } from '@icon-park/vue-next'
+import { storeToRefs } from 'pinia'
+import SearchBox from '@/components/SearchBox.vue'
+import { useClipboardStore } from '@/stores/clipboard'
 
-const emits = defineEmits(['close']);
-const clipboardStore = useClipboardStore();
-const { keyword } = storeToRefs(clipboardStore);
-
-
+const emits = defineEmits(['close'])
+const clipboardStore = useClipboardStore()
+const { keyword } = storeToRefs(clipboardStore)
 </script>
 
 <template>
   <header v-drag-window>
     <SearchBox v-model="keyword" />
-<!--    <SortAmountDown />-->
+    <!--    <SortAmountDown /> -->
     <el-popconfirm
       title="确定清空所有未收藏记录？"
       width="200"
       cancel-button-text="取消"
       confirm-button-text="确定"
-      @confirm="clipboardStore.clear">
+      @confirm="clipboardStore.clear"
+    >
       <template #reference>
         <Clear />
       </template>

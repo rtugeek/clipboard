@@ -1,4 +1,4 @@
-import { BackgroundWidget, WidgetKeyword } from '@widget-js/core';
+import { BackgroundWidget, WidgetKeyword } from '@widget-js/core'
 
 // 组件标题
 const ClipboardWidget = new BackgroundWidget({
@@ -9,6 +9,6 @@ const ClipboardWidget = new BackgroundWidget({
   lang: 'zh-CN',
   previewImage: '/images/preview_clipboard.png',
   path: '/clipboard',
-});
+})
 
-export default ClipboardWidget;
+export default ClipboardWidget

@@ -27,7 +27,7 @@ export const searchPlatformList: SearchPlatform[] = [
     url: 'https://www.baidu.com/s?wd=%s',
     value: 'baidu',
     icon: './images/logo/baidu.png',
-  }
+  },
 ]
 
 export function search(se: SearchEngine, keyword: string) {

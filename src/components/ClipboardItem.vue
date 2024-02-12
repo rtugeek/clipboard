@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { PropType } from 'vue';
-import { computed, toRaw, watch } from 'vue';
-import dayjs from 'dayjs';
-import { useDebounceFn } from '@vueuse/core';
-import FavoriteButton from '@/components/FavoriteButton.vue';
-import { Delete } from '@icon-park/vue-next';
-import type { ClipboardData } from '@/model/ClipboardData';
-import { clipboardDataRepository } from '@/model/ClipboardDataRepository';
+import type { PropType } from 'vue'
+import { computed } from 'vue'
+import dayjs from 'dayjs'
+import { Delete } from '@icon-park/vue-next'
+import { useVModel } from '@vueuse/core'
+import FavoriteButton from '@/components/FavoriteButton.vue'
+import type { ClipboardData } from '@/model/ClipboardData'
 
 const props = defineProps({
   modelValue: {
@@ -17,28 +16,21 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-});
-
-const time = computed(() => {
-  return dayjs(props.modelValue.latestUseTime).format('MM-DD HH:mm');
-});
-
-const isFavorite = computed({
-  get: () => props.modelValue.favorite,
-  set: (value) => {
-    props.modelValue.favorite = value;
-    clipboardDataRepository.update(toRaw(props.modelValue));
+  favorite: {
+    type: Boolean,
+    default: false,
   },
-});
+})
+const emits = defineEmits(['click', 'delete', 'update:favorite'])
+const time = computed(() => {
+  return dayjs(props.modelValue.latestUseTime).format('MM-DD HH:mm')
+})
 
-const deleteData = () => {
-  clipboardDataRepository.delete(props.modelValue.id);
-};
-const emits = defineEmits(['click']);
+const favoriteModel = useVModel(props, 'favorite', emits)
 </script>
 
 <template>
-  <div class="clipboard-item" @click.self="emits('click')" :class="{ active }">
+  <div class="clipboard-item" :class="{ active }" @click.self="emits('click')">
     <div class="info" @click="emits('click')">
       <div class="content">
         {{ modelValue.getPreview() }}
@@ -49,17 +41,8 @@ const emits = defineEmits(['click']);
       </div>
     </div>
     <div class="actions">
-      <FavoriteButton v-model="isFavorite" />
-      <el-popconfirm
-        title="确定删除该记录？"
-        width="200"
-        cancel-button-text="取消"
-        confirm-button-text="确定"
-        @confirm="deleteData">
-        <template #reference>
-          <delete />
-        </template>
-      </el-popconfirm>
+      <FavoriteButton v-model="favoriteModel" />
+      <Delete />
     </div>
   </div>
 </template>
@@ -108,6 +91,7 @@ $active-color: theme.$app-secondary-color;
     gap: 0.5rem;
     width: 70%;
     line-height: 1.2rem;
+
     .content {
       font-size: 1rem;
       font-weight: bold;

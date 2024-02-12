@@ -1,4 +1,4 @@
-import { WidgetPackage } from '@widget-js/core';
+import { WidgetPackage } from '@widget-js/core'
 
 export default new WidgetPackage({
   author: 'Neo Fu',
@@ -12,7 +12,7 @@ export default new WidgetPackage({
   title: {
     'zh-CN': '剪切板组件包',
   },
-  remoteEntry:'https://rtugeek.gitee.io/clipboard',
+  remoteEntry: 'https://rtugeek.gitee.io/clipboard',
   version: '1.0.0',
   development: true,
   devOptions: {
@@ -20,4 +20,4 @@ export default new WidgetPackage({
     route: true,
     devUrl: 'http://localhost:5173/clipboard',
   },
-});
+})
