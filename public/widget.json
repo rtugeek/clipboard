@@ -1,6 +1,7 @@
 {
   "name": "cn.widgetjs.widgets.clipboard",
   "version": "1.0.0",
+  "requiredAppVersion": "24.2.15",
   "author": "Neo Fu",
   "development": true,
   "homepage": "",
@@ -10,8 +11,12 @@
   "description": {
     "zh-CN": "提供剪切板便捷功能"
   },
-  "entry": "/",
+  "entry": "index.html",
   "remoteEntry": "https://rtugeek.gitee.io/clipboard",
+  "remote": {
+    "entry": "https://rtugeek.gitee.io/clipboard",
+    "base": "/clipboard"
+  },
   "hash": true,
   "url": "",
   "widgets": [

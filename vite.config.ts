@@ -13,7 +13,7 @@ export default defineConfig({
   base: '/clipboard/',
   plugins: [
     vue(),
-    widget(),
+    widget({ generateFullNamePackage: true }),
     vueJsx(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
