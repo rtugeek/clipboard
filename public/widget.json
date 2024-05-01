@@ -1,9 +1,8 @@
 {
   "name": "cn.widgetjs.widgets.clipboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "requiredAppVersion": "24.2.15",
   "author": "Neo Fu",
-  "development": true,
   "homepage": "",
   "title": {
     "zh-CN": "剪切板组件包"
@@ -12,10 +11,11 @@
     "zh-CN": "提供剪切板便捷功能"
   },
   "entry": "index.html",
-  "remoteEntry": "https://rtugeek.gitee.io/clipboard",
+  "remoteEntry": "https://widgetjs.cn/clipboard",
   "remote": {
-    "entry": "https://rtugeek.gitee.io/clipboard",
-    "base": "/clipboard"
+    "entry": "https://widgetjs.cn/clipboard",
+    "base": "/clipboard",
+    "hostname": "widgetjs.cn"
   },
   "hash": true,
   "url": "",
@@ -86,10 +86,5 @@
       "routes": []
     }
   ],
-  "pages": [],
-  "devOptions": {
-    "folder": "./src/widgets/",
-    "route": true,
-    "devUrl": "http://localhost:5173/clipboard"
-  }
+  "pages": []
 }

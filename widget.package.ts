@@ -2,8 +2,9 @@ import { WidgetPackage } from '@widget-js/core'
 
 export default new WidgetPackage({
   remote: {
-    entry: 'https://rtugeek.gitee.io/clipboard',
+    entry: 'https://widgetjs.cn/clipboard',
     base: '/clipboard',
+    hostname: 'widgetjs.cn'
   },
   author: 'Neo Fu',
   description: {
@@ -16,8 +17,7 @@ export default new WidgetPackage({
   title: {
     'zh-CN': '剪切板组件包',
   },
-  remoteEntry: 'https://rtugeek.gitee.io/clipboard',
-  version: '1.0.0',
+  remoteEntry: 'https://widgetjs.cn/clipboard',
   requiredAppVersion: '24.2.15',
   development: true,
   devOptions: {

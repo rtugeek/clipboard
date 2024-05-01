@@ -1,7 +1,7 @@
 {
   "name": "clipboard",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -12,14 +12,15 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint --cache .",
     "lint:fix": "eslint --cache . --fix",
-    "remote": "widget dependencies -t remote",
-    "local": "widget dependencies -t local"
+    "remote": "widget dependencies -t remote && pnpm install",
+    "local": "widget dependencies -t local && pnpm install",
+    "release": "widget release -t ftp"
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
     "@vueuse/core": "^10.2.1",
-    "@widget-js/core": "workspace:*",
-    "@widget-js/vue3": "workspace:*",
+    "@widget-js/core": "^24.1.1-beta.5",
+    "@widget-js/vue3": "^24.1.1-beta.5",
     "color": "^4.2.3",
     "consola": "^3.2.3",
     "dayjs": "^1.11.9",
@@ -41,7 +42,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/test-utils": "^2.3.2",
     "@vue/tsconfig": "^0.4.0",
-    "@widget-js/vite-plugin-widget": "workspace:*",
+    "@widget-js/vite-plugin-widget": "^24.1.1-beta.5",
     "eslint": "8.48.0",
     "jsdom": "^22.1.0",
     "lint-staged": "^15.2.2",
