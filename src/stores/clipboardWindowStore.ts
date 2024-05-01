@@ -17,7 +17,7 @@ export const useClipboardWindowStore = defineStore('clipboardWindowStore', () =>
   const screenHeight = window.screen.height
 
   const maxY = ref(screenHeight)
-  const minY = ref(screenHeight - windowHeight.value - 54)
+  const minY = ref(screenHeight - windowHeight.value - (screenHeight * 0.05))
 
   async function isHide() {
     const pos = await BrowserWindowApi.getPosition()
@@ -35,6 +35,7 @@ export const useClipboardWindowStore = defineStore('clipboardWindowStore', () =>
     onFinished: async () => {
       const hidden = await isHide()
       if (hidden) {
+        await BrowserWindowApi.setBounds({height: windowHeight.value})
         await BrowserWindowApi.minimize()
         showing.value = false
       }
@@ -67,6 +68,7 @@ export const useClipboardWindowStore = defineStore('clipboardWindowStore', () =>
     await BrowserWindowApi.setup({
       width: windowWidth.value,
       height: windowHeight.value,
+      maxHeight: windowHeight.value,
       movable: true,
       resizable: false,
       alwaysOnTop: true,
