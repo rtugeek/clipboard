@@ -8,6 +8,7 @@ const ClipboardSearchWidget = new BackgroundWidget({
   description: { 'zh-CN': '在屏幕上方显示剪切板快捷搜索' },
   keywords: [WidgetKeyword.RECOMMEND],
   lang: 'zh-CN',
+  categories: ['productivity'],
   permissions: ['clipboard'],
   previewImage: '/images/preview_search.png',
 })

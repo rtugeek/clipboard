@@ -6,6 +6,7 @@ const ClipboardWidget = new BackgroundWidget({
   title: { 'zh-CN': '剪切板' },
   description: { 'zh-CN': '带搜索、收藏功能的剪切板' },
   keywords: [WidgetKeyword.RECOMMEND],
+  categories: ['productivity'],
   lang: 'zh-CN',
   previewImage: '/images/preview_clipboard.png',
   path: '/clipboard',
