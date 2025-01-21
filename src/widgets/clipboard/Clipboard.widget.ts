@@ -7,6 +7,10 @@ const ClipboardWidget = new BackgroundWidget({
   keywords: [WidgetKeyword.RECOMMEND],
   categories: ['productivity'],
   lang: 'zh-CN',
+  socialLinks: [{
+    name: 'github',
+    link: 'https://github.com/rtugeek/clipboard',
+  }],
   previewImage: '/images/preview_clipboard.png',
   path: '/clipboard',
 })

@@ -1,14 +1,16 @@
 {
   "name": "cn.widgetjs.widgets.clipboard",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "requiredAppVersion": "24.2.15",
   "author": "Neo Fu",
   "homepage": "",
   "title": {
-    "zh-CN": "剪切板组件包"
+    "zh-CN": "剪切板组件包",
+    "en-US": "Clipboard Widget Package"
   },
   "description": {
-    "zh-CN": "提供剪切板便捷功能"
+    "zh-CN": "提供剪切板便捷功能",
+    "en-US": "Provide clipboard convenience functions"
   },
   "entry": "index.html",
   "remoteEntry": "https://widgetjs.cn/clipboard",
@@ -23,10 +25,12 @@
     {
       "name": "cn.widgetjs.widgets.clipboard.search",
       "title": {
-        "zh-CN": "剪切板搜索"
+        "zh-CN": "剪切板搜索",
+        "en-US": "Clipboard Search"
       },
       "description": {
-        "zh-CN": "在屏幕上方显示剪切板快捷搜索"
+        "zh-CN": "在屏幕上方显示剪切板快捷搜索",
+        "en-US": "Search clipboard text with shortcut"
       },
       "keywords": [
         "recommend"
@@ -54,16 +58,24 @@
         "productivity"
       ],
       "supportDeployMode": 65536,
-      "configPagePath": "/search/config",
-      "routes": []
+      "configPagePath": "/search/config?transparent=false&frame=true&width=550&height=400",
+      "routes": [],
+      "socialLinks": [
+        {
+          "name": "github",
+          "link": "https://github.com/rtugeek/clipboard"
+        }
+      ]
     },
     {
       "name": "cn.widgetjs.widgets.clipboard.list",
       "title": {
-        "zh-CN": "剪切板"
+        "zh-CN": "剪切板",
+        "en-US": "Clipboard"
       },
       "description": {
-        "zh-CN": "带搜索、收藏功能的剪切板"
+        "zh-CN": "带搜索、收藏功能的剪切板",
+        "en-US": "Clipboard with search and collection functions"
       },
       "keywords": [
         "recommend"
@@ -89,7 +101,13 @@
         "productivity"
       ],
       "supportDeployMode": 65536,
-      "routes": []
+      "routes": [],
+      "socialLinks": [
+        {
+          "name": "github",
+          "link": "https://github.com/rtugeek/clipboard"
+        }
+      ]
     }
   ],
   "pages": []
