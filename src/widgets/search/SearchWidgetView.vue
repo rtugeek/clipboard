@@ -2,7 +2,7 @@
 import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3'
 import { BrowserWindowApi, BrowserWindowApiEvent, ClipboardApiEvent, ShortcutApi } from '@widget-js/core'
 import { ref, watch } from 'vue'
-import { useLocalStorage } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 import type { SearchEngine } from '@/widgets/search/model/SearchPlatform'
 import { search, searchPlatformList } from '@/widgets/search/model/SearchPlatform'
 import { useSearchWindowStore } from '@/stores/searchWindowsStore'
@@ -13,18 +13,18 @@ const searchWindowStore = useSearchWindowStore()
 
 searchWindowStore.setup()
 
-useAppBroadcast([ClipboardApiEvent.CHANGED, BrowserWindowApiEvent.FOCUS], async (broadcast) => {
+useAppBroadcast([ClipboardApiEvent.CHANGED], async (broadcast) => {
   if (broadcast.event == ClipboardApiEvent.CHANGED) {
     data.value = broadcast.payload.content as string
-    await BrowserWindowApi.setAlwaysOnTop(true)
-    searchWindowStore.show()
+    if (data.value) {
+      await BrowserWindowApi.setAlwaysOnTop(true)
+      searchWindowStore.show()
+    }
   }
 })
 
-const shortcut = useLocalStorage(`${ClipboardSearchWidget.name}.shortcut`, 'Meta+Alt+S', { listenToStorageChanges: true })
-const searchPlatform = useLocalStorage<SearchEngine>(`${ClipboardSearchWidget.name}.platform`, 'google', {
-  listenToStorageChanges: true,
-})
+const shortcut = useStorage(`${ClipboardSearchWidget.name}.shortcut`, 'Meta+Alt+S')
+const searchPlatform = useStorage<SearchEngine>(`${ClipboardSearchWidget.name}.platform`, 'google')
 
 watch(shortcut, (newShortcut, oldValue) => {
   ShortcutApi.unregister(oldValue)
@@ -34,6 +34,7 @@ watch(shortcut, (newShortcut, oldValue) => {
 ShortcutApi.register(shortcut.value)
 
 useShortcutListener(() => {
+  console.info(data.value)
   if (data.value) {
     search(searchPlatform.value, data.value)
   }

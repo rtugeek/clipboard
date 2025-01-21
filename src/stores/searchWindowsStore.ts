@@ -32,10 +32,10 @@ export const useSearchWindowStore = defineStore('searchWindowStore', () => {
   const animateY = useWindowAnimationY({
     duration: 500,
     transition: TransitionPresets.easeOutCubic,
-    onStarted: async () => {
+    onStart: async () => {
       await BrowserWindowApi.showInactive()
     },
-    onFinished: async () => {
+    onComplete: async () => {
       const hidden = await isHide()
       if (hidden) {
         showing.value = false

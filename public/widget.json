@@ -50,6 +50,9 @@
       "meta": {},
       "backgroundThrottling": false,
       "previewImage": "/images/preview_search.png",
+      "categories": [
+        "productivity"
+      ],
       "supportDeployMode": 65536,
       "configPagePath": "/search/config",
       "routes": []
@@ -82,6 +85,9 @@
       "meta": {},
       "backgroundThrottling": false,
       "previewImage": "/images/preview_clipboard.png",
+      "categories": [
+        "productivity"
+      ],
       "supportDeployMode": 65536,
       "routes": []
     }

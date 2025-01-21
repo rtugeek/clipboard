@@ -4,7 +4,7 @@ import ClipboardSearchWidget from './ClipboardSearch.widget'
 const path = ClipboardSearchWidget.path
 const name = ClipboardSearchWidget.name
 
-const configUrl = ClipboardSearchWidget.configPagePath!
+const configUrl = ClipboardSearchWidget.configPagePath!.split('?')[0]
 
 const SearchWidgetRoutes: RouteRecordRaw[] = [
   {

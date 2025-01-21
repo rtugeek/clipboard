@@ -1,4 +1,5 @@
 import { BrowserWindowApi } from '@widget-js/core'
+import consola from 'consola'
 
 export type SearchEngine = 'bing' | 'google' | 'baidu'
 
@@ -31,6 +32,7 @@ export const searchPlatformList: SearchPlatform[] = [
 ]
 
 export function search(se: SearchEngine, keyword: string) {
+  console.info('search', se, keyword)
   const platform = searchPlatformList.find(item => item.value === se)
   if (platform) {
     const url = platform.url.replace('%s', keyword)

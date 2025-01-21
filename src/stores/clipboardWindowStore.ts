@@ -27,15 +27,15 @@ export const useClipboardWindowStore = defineStore('clipboardWindowStore', () =>
   const animateY = useWindowAnimationY({
     duration: 500,
     transition: TransitionPresets.easeOutCubic,
-    onStarted: async () => {
+    onStart: async () => {
       await BrowserWindowApi.restore()
       await BrowserWindowApi.show()
       await BrowserWindowApi.focus()
     },
-    onFinished: async () => {
+    onComplete: async () => {
       const hidden = await isHide()
       if (hidden) {
-        await BrowserWindowApi.setBounds({height: windowHeight.value})
+        await BrowserWindowApi.setBounds({ height: windowHeight.value })
         await BrowserWindowApi.minimize()
         showing.value = false
       }

@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import { WidgetConfigOption, WidgetEditDialog, useWidget } from '@widget-js/vue3'
-import { BroadcastApi, BroadcastEvent, BrowserWindowApi, WidgetApiEvent, WidgetData } from '@widget-js/core'
-import { useLocalStorage } from '@vueuse/core'
+import { BroadcastApi, BroadcastEvent, WidgetApiEvent } from '@widget-js/core'
+import { useStorage } from '@vueuse/core'
 import ClipboardWidget from '@/widgets/clipboard/Clipboard.widget'
 import { searchPlatformList } from '@/widgets/search/model/SearchPlatform'
+import ClipboardSearchWidget from '@/widgets/search/ClipboardSearch.widget'
 
-const shortcut = useLocalStorage(`${ClipboardWidget.name}.shortcut`, 'Meta+Alt+S')
-const searchPlatform = useLocalStorage(`${ClipboardWidget.name}.platform`, 'google')
+const shortcut = useStorage(`${ClipboardSearchWidget.name}.shortcut`, 'Meta+Alt+S')
+const searchPlatform = useStorage(`${ClipboardSearchWidget.name}.platform`, 'google')
 const {
-  widgetData,
   widgetParams,
-} = useWidget(WidgetData)
+} = useWidget()
 
 const widgetConfigOption = new WidgetConfigOption({
   custom: true,
@@ -28,17 +28,11 @@ async function save() {
   await apply()
   window.close()
 }
-
-BrowserWindowApi.setup({
-  width: 550,
-  height: 400,
-  center: true,
-})
 </script>
 
 <template>
   <WidgetEditDialog
-    v-model="widgetData" :widget-params="widgetParams"
+    :widget-params="widgetParams"
     :option="widgetConfigOption"
     @apply="apply"
     @confirm="save"
