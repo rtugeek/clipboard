@@ -55,11 +55,15 @@
       "backgroundThrottling": false,
       "previewImage": "/images/preview_search.png",
       "categories": [
-        "productivity"
+        "productivity",
+        "ai"
       ],
       "supportDeployMode": 65536,
       "configPagePath": "/search/config?transparent=false&frame=true&width=550&height=600",
       "routes": [],
+      "browserWindowOptions": {
+        "backgroundThrottling": false
+      },
       "socialLinks": [
         {
           "name": "github",
@@ -102,6 +106,9 @@
       ],
       "supportDeployMode": 65536,
       "routes": [],
+      "browserWindowOptions": {
+        "backgroundThrottling": false
+      },
       "socialLinks": [
         {
           "name": "github",

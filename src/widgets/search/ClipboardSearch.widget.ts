@@ -21,7 +21,7 @@ const ClipboardSearchWidget = new BackgroundWidget({
     name: 'github',
     link: 'https://github.com/rtugeek/clipboard',
   }],
-  categories: ['productivity'],
+  categories: ['productivity', 'ai'],
   permissions: ['clipboard'],
   previewImage: '/images/preview_search.png',
 })
