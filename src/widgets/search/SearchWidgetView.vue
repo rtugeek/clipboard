@@ -1,16 +1,18 @@
 <script lang="ts" setup>
 import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3'
-import { BrowserWindowApi, BrowserWindowApiEvent, ClipboardApiEvent, ShortcutApi } from '@widget-js/core'
+import { BrowserWindowApi, ClipboardApiEvent, ShortcutApi, WidgetApi } from '@widget-js/core'
 import { ref, watch } from 'vue'
 import { useStorage } from '@vueuse/core'
-import type { SearchEngine } from '@/widgets/search/model/SearchPlatform'
-import { search, searchPlatformList } from '@/widgets/search/model/SearchPlatform'
+import type { SearchEngine } from '@/widgets/search/model/ClipboardAction'
 import { useSearchWindowStore } from '@/stores/searchWindowsStore'
 import ClipboardSearchWidget from '@/widgets/search/ClipboardSearch.widget'
+import ActionIcon from '@/widgets/search/components/ActionIcon.vue'
+import { SearchUtils } from '@/utils/SearchUtils'
+import { useAiConfigStore } from '@/stores/useAiConfigStore'
 
 const data = ref('')
 const searchWindowStore = useSearchWindowStore()
-
+const aiConfigStore = useAiConfigStore()
 searchWindowStore.setup()
 
 useAppBroadcast([ClipboardApiEvent.CHANGED], async (broadcast) => {
@@ -34,11 +36,24 @@ watch(shortcut, (newShortcut, oldValue) => {
 ShortcutApi.register(shortcut.value)
 
 useShortcutListener(() => {
-  console.info(data.value)
   if (data.value) {
-    search(searchPlatform.value, data.value)
+    SearchUtils.search(searchPlatform.value, data.value)
   }
 })
+
+function onMindmapClick() {
+  const url = `https://widgetjs.cn/ai/page/mindmap?content=${data.value}&${aiConfigStore.configToUrlParams()}`
+  BrowserWindowApi.openUrl(url, {
+    center: true,
+    width: 800,
+    minWidth: 800,
+    minHeight: 800,
+    frame: true,
+    resizable: true,
+    transparent: false,
+    height: 600,
+  })
+}
 </script>
 
 <template>
@@ -47,20 +62,16 @@ useShortcutListener(() => {
       {{ data }}
     </div>
     <div class="actions">
-      <div
-        v-for="platform in searchPlatformList"
-        :key="platform.value"
-        class="search-engine"
-        @click="search(platform.value, data)"
-      >
-        <img :src="platform.icon" :alt="platform.title">
-      </div>
+      <ActionIcon emoji="🤯" label="思维导图" @click="onMindmapClick" />
+      <ActionIcon emoji="🔍" label="搜索" @click="SearchUtils.search(searchPlatform, data)" />
+      <ActionIcon emoji="⚙️" label="设置" @click="WidgetApi.openConfigPage()" />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .hover-wrapper {
+  height: 44px;
   display: flex;
   background-color: white;
   border-radius: 0 0 8px 8px;
@@ -101,7 +112,6 @@ useShortcutListener(() => {
         height: 24px;
         background: transparent;
       }
-
       &:hover {
         box-sizing: border-box;
         border-radius: 4px;

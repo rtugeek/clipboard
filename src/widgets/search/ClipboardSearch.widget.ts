@@ -2,18 +2,21 @@ import { BackgroundWidget, WidgetKeyword } from '@widget-js/core'
 
 const ClipboardSearchWidget = new BackgroundWidget({
   path: '/search',
-  configPagePath: '/search/config?transparent=false&frame=true&width=550&height=400',
+  configPagePath: '/search/config?transparent=false&frame=true&width=550&height=600',
   name: 'cn.widgetjs.widgets.clipboard.search',
   title: {
-    'zh-CN': '剪切板搜索',
+    'zh-CN': 'AI剪切板',
     'en-US': 'Clipboard Search',
   },
   description: {
-    'zh-CN': '在屏幕上方显示剪切板快捷搜索',
-    'en-US': 'Search clipboard text with shortcut',
+    'zh-CN': '使用剪切板内容对AI进行快速对话',
+    'en-US': 'Quickly chat with AI using clipboard content',
   },
   keywords: [WidgetKeyword.RECOMMEND],
   lang: 'zh-CN',
+  browserWindowOptions: {
+    backgroundThrottling: false,
+  },
   socialLinks: [{
     name: 'github',
     link: 'https://github.com/rtugeek/clipboard',

@@ -5,6 +5,7 @@ import './assets/main.scss'
 import piniaPersist from 'pinia-plugin-persist'
 import localforage from 'localforage'
 import { WidgetJsPlugin } from '@widget-js/vue3'
+import AiComponentPlugin from '@widget-js/ai-component'
 import App from './App.vue'
 import '@widget-js/vue3/dist/style.css'
 import router from './router'
@@ -23,7 +24,9 @@ async function init() {
   pinia.use(piniaPersist)
   app.use(pinia)
   app.use(router)
+  app.use(router)
   app.use(WidgetJsPlugin)
+  app.use(AiComponentPlugin)
 
   app.mount('#app')
 }

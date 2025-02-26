@@ -5,8 +5,8 @@ import { BrowserWindowApi } from '@widget-js/core'
 import { useWindowAnimationY } from '@widget-js/vue3'
 
 export const useSearchWindowStore = defineStore('searchWindowStore', () => {
-  const windowWidth = ref(600)
-  const windowHeight = ref(56)
+  const windowWidth = ref(700)
+  const windowHeight = ref(44)
   const showing = ref(false)
   const maxY = ref(0)
   const minY = ref(maxY.value - windowHeight.value)
@@ -37,6 +37,7 @@ export const useSearchWindowStore = defineStore('searchWindowStore', () => {
     },
     onComplete: async () => {
       const hidden = await isHide()
+      BrowserWindowApi.setBounds({ height: windowHeight.value })
       if (hidden) {
         showing.value = false
         await BrowserWindowApi.hide()
@@ -45,6 +46,7 @@ export const useSearchWindowStore = defineStore('searchWindowStore', () => {
   })
 
   const show = async () => {
+    await BrowserWindowApi.setAlwaysOnTop(true)
     await BrowserWindowApi.showInactive()
     animateY.animate(maxY.value)
     showing.value = true

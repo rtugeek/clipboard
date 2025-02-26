@@ -11,6 +11,9 @@ const ClipboardWidget = new BackgroundWidget({
     name: 'github',
     link: 'https://github.com/rtugeek/clipboard',
   }],
+  browserWindowOptions: {
+    backgroundThrottling: false,
+  },
   previewImage: '/images/preview_clipboard.png',
   path: '/clipboard',
 })
