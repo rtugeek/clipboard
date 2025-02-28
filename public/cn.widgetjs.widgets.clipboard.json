@@ -23,6 +23,51 @@
   "url": "",
   "widgets": [
     {
+      "name": "cn.widgetjs.widgets.clipboard.list",
+      "title": {
+        "zh-CN": "剪切板",
+        "en-US": "Clipboard"
+      },
+      "description": {
+        "zh-CN": "带搜索、收藏功能的剪切板",
+        "en-US": "Clipboard with search and collection functions"
+      },
+      "keywords": [
+        "recommend"
+      ],
+      "security": false,
+      "permissions": [],
+      "lang": "zh-CN",
+      "width": 1,
+      "height": 1,
+      "maxWidth": 1,
+      "webviewTag": false,
+      "maxHeight": 1,
+      "minWidth": 1,
+      "minHeight": 1,
+      "movable": true,
+      "singleton": false,
+      "resizable": true,
+      "path": "/clipboard",
+      "meta": {},
+      "backgroundThrottling": false,
+      "previewImage": "/images/preview_clipboard.png",
+      "categories": [
+        "productivity"
+      ],
+      "supportDeployMode": 65536,
+      "routes": [],
+      "browserWindowOptions": {
+        "backgroundThrottling": false
+      },
+      "socialLinks": [
+        {
+          "name": "github",
+          "link": "https://github.com/rtugeek/clipboard"
+        }
+      ]
+    },
+    {
       "name": "cn.widgetjs.widgets.clipboard.search",
       "title": {
         "zh-CN": "AI剪切板",
@@ -60,51 +105,6 @@
       ],
       "supportDeployMode": 65536,
       "configPagePath": "/search/config?transparent=false&frame=true&width=550&height=600",
-      "routes": [],
-      "browserWindowOptions": {
-        "backgroundThrottling": false
-      },
-      "socialLinks": [
-        {
-          "name": "github",
-          "link": "https://github.com/rtugeek/clipboard"
-        }
-      ]
-    },
-    {
-      "name": "cn.widgetjs.widgets.clipboard.list",
-      "title": {
-        "zh-CN": "剪切板",
-        "en-US": "Clipboard"
-      },
-      "description": {
-        "zh-CN": "带搜索、收藏功能的剪切板",
-        "en-US": "Clipboard with search and collection functions"
-      },
-      "keywords": [
-        "recommend"
-      ],
-      "security": false,
-      "permissions": [],
-      "lang": "zh-CN",
-      "width": 1,
-      "height": 1,
-      "maxWidth": 1,
-      "webviewTag": false,
-      "maxHeight": 1,
-      "minWidth": 1,
-      "minHeight": 1,
-      "movable": true,
-      "singleton": false,
-      "resizable": true,
-      "path": "/clipboard",
-      "meta": {},
-      "backgroundThrottling": false,
-      "previewImage": "/images/preview_clipboard.png",
-      "categories": [
-        "productivity"
-      ],
-      "supportDeployMode": 65536,
       "routes": [],
       "browserWindowOptions": {
         "backgroundThrottling": false

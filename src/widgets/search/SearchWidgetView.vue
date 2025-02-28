@@ -54,6 +54,20 @@ function onMindmapClick() {
     height: 600,
   })
 }
+
+function onTranslateClick() {
+  const url = `https://widgetjs.cn/ai/page/translate?content=${data.value}&${aiConfigStore.configToUrlParams()}`
+  BrowserWindowApi.openUrl(url, {
+    center: true,
+    width: 700,
+    minWidth: 700,
+    minHeight: 400,
+    frame: true,
+    resizable: true,
+    transparent: false,
+    height: 500,
+  })
+}
 </script>
 
 <template>
@@ -63,6 +77,7 @@ function onMindmapClick() {
     </div>
     <div class="actions">
       <ActionIcon emoji="🤯" label="思维导图" @click="onMindmapClick" />
+      <ActionIcon emoji="🌏" label="翻译" @click="onTranslateClick" />
       <ActionIcon emoji="🔍" label="搜索" @click="SearchUtils.search(searchPlatform, data)" />
       <ActionIcon emoji="⚙️" label="设置" @click="WidgetApi.openConfigPage()" />
     </div>
