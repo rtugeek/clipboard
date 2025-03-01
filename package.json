@@ -39,7 +39,6 @@
     "@types/jsdom": "^21.1.1",
     "@types/node": "^18.16.17",
     "@vitejs/plugin-vue": "^4.2.3",
-    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/test-utils": "^2.3.2",
     "@vue/tsconfig": "^0.4.0",
     "@widget-js/vite-plugin-widget": "^24.1.1-beta.41",
