@@ -6,7 +6,7 @@ import { useWindowAnimationY } from '@widget-js/vue3'
 
 export const useSearchWindowStore = defineStore('searchWindowStore', () => {
   const windowWidth = ref(700)
-  const windowHeight = ref(44)
+  const windowHeight = ref(54)
   const showing = ref(false)
   const maxY = ref(0)
   const minY = ref(maxY.value - windowHeight.value)
