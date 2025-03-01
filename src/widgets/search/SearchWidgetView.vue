@@ -42,7 +42,7 @@ useShortcutListener(() => {
 })
 
 function onMindmapClick() {
-  const url = `https://widgetjs.cn/ai/page/mindmap?content=${data.value}&${aiConfigStore.configToUrlParams()}`
+  const url = `https://widgetjs.cn/ai/page/mindmap?content=${encodeURIComponent(data.value)}&${aiConfigStore.configToUrlParams()}`
   BrowserWindowApi.openUrl(url, {
     center: true,
     width: 800,
@@ -56,7 +56,7 @@ function onMindmapClick() {
 }
 
 function onTranslateClick() {
-  const url = `https://widgetjs.cn/ai/page/translate?content=${data.value}&${aiConfigStore.configToUrlParams()}`
+  const url = `https://widgetjs.cn/ai/page/translate?content=${encodeURIComponent(data.value)}&${aiConfigStore.configToUrlParams()}`
   BrowserWindowApi.openUrl(url, {
     center: true,
     width: 700,
@@ -92,7 +92,7 @@ function onTranslateClick() {
   border-radius: 0 0 8px 8px;
   overflow: hidden;
   padding: 8px 16px;
-  margin: 0 4px 4px 4px;
+  margin: 0 4px 0 4px;
   gap: 12px;
   align-items: center;
   box-sizing: border-box;
