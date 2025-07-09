@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useAppBroadcast, useShortcutListener } from '@widget-js/vue3'
 import { BrowserWindowApi, ClipboardApiEvent, ShortcutApi, WidgetApi } from '@widget-js/core'
-import { ref, watch } from 'vue'
-import { useStorage } from '@vueuse/core'
+import { ref, watch, watchEffect } from 'vue'
+import { usePageLeave, useStorage, useWindowFocus } from '@vueuse/core'
 import type { SearchEngine } from '@/widgets/search/model/ClipboardAction'
 import { useSearchWindowStore } from '@/stores/searchWindowsStore'
 import ClipboardSearchWidget from '@/widgets/search/ClipboardSearch.widget'
@@ -12,7 +12,10 @@ import { useAiConfigStore } from '@/stores/useAiConfigStore'
 
 const data = ref('')
 const searchWindowStore = useSearchWindowStore()
+const { startHideTimer } = searchWindowStore
 const aiConfigStore = useAiConfigStore()
+const windowFocused = useWindowFocus()
+const isPageLeave = usePageLeave()
 searchWindowStore.setup()
 
 useAppBroadcast([ClipboardApiEvent.CHANGED], async (broadcast) => {
@@ -68,12 +71,23 @@ function onTranslateClick() {
     height: 500,
   })
 }
+
+watchEffect(() => {
+  if (windowFocused.value) {
+    searchWindowStore.clearHideTimer()
+  }
+  else {
+    if (isPageLeave.value) {
+      startHideTimer()
+    }
+  }
+})
 </script>
 
 <template>
-  <div class="hover-wrapper" @mouseenter="searchWindowStore.clearHideTimer()" @mouseleave="searchWindowStore.startHideTimer()">
+  <div class="hover-wrapper" @mouseenter="searchWindowStore.clearHideTimer()">
     <div class="content">
-      {{ data }}
+      <input v-model="data">
     </div>
     <div class="actions">
       <ActionIcon emoji="🤯" label="思维导图" @click="onMindmapClick" />
@@ -100,6 +114,13 @@ function onTranslateClick() {
   backdrop-filter: blur(40px);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
+  input{
+    border: none;
+    flex: 1;
+    width: 100%;
+    font-size: 1.1rem;
+    outline: none;
+  }
   .content {
     white-space: nowrap;
     text-overflow: ellipsis;
